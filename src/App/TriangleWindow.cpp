@@ -49,6 +49,8 @@ void TriangleWindow::init()
 	program_->enableAttributeArray(0);
 	program_->setAttributeBuffer(0, GL_FLOAT, 0, 2, static_cast<int>(5 * sizeof(GLfloat)));
 
+	// 3 аргумент --- смещение относительно начала в VBO
+	// 5 аргумент --- stride, расстояние между вершинами
 	program_->enableAttributeArray(1);
 	program_->setAttributeBuffer(1, GL_FLOAT, static_cast<int>(2 * sizeof(GLfloat)), 3,
 								 static_cast<int>(5 * sizeof(GLfloat)));
@@ -64,8 +66,8 @@ void TriangleWindow::init()
 	vbo_.release();
 
 	// Uncomment to enable depth test and face culling
-	// glEnable(GL_DEPTH_TEST);
-	// glEnable(GL_CULL_FACE);
+//	 glEnable(GL_DEPTH_TEST);
+//	 glEnable(GL_CULL_FACE);
 
 	// Clear all FBO buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

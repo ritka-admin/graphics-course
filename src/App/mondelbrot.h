@@ -1,6 +1,8 @@
 #include "Base/GLWindow.hpp"
 
+#include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
+#include <QOpenGLVertexArrayObject>
 #include <QtMath>
 
 class MondelbrotWindow : public fgl::GLWindow {
@@ -29,9 +31,19 @@ private:
 
 	// Граница, по которой проверяем
 	size_t R;
-	std::unique_ptr<QOpenGLShaderProgram> program_ = nullptr;
-
 	GLint pqUniform_ = -1;
 	GLint stepsUniform_ = -1;
 	GLint iterationsUniform_ = -1;
+	GLint radiusUniform_ = -1;
+
+	QOpenGLBuffer vbo_{QOpenGLBuffer::Type::VertexBuffer};
+	QOpenGLBuffer ibo_{QOpenGLBuffer::Type::IndexBuffer};
+	QOpenGLVertexArrayObject vao_;
+
+	std::unique_ptr<QOpenGLShaderProgram> program_ = nullptr;
+
+	size_t frame_ = 0;
+
+	QVector2D mousePressPosition_{0., 0.};
+	QVector3D rotationAxis_{0., 1., 0.};
 };

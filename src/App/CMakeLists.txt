@@ -1,7 +1,7 @@
 set(SRCS
     main.cpp
     mondelbrot.cpp
-    mondelbrot.cpp
+    mondelbrot.h
 
     shaders.qrc
     Shaders/mondelbrot.fs
@@ -17,7 +17,3 @@ target_link_libraries(demo-app
         Qt5::Widgets
         FGL::Base
 )
-
-#set(CMAKE_AUTOMOC ON)
-#set(CMAKE_AUTORCC ON)
-#set(CMAKE_AUTOUIC ON)

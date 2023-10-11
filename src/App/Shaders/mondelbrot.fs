@@ -2,7 +2,8 @@
 
 uniform vec4 pqs;
 uniform vec4 steps;
-uniform size_t max_iterations;
+uniform int max_iterations;
+uniform int R;
 
 out vec4 fragment_color;
 
@@ -26,10 +27,10 @@ void main() {
 
         z_y = 2 * z_x * z_y + q;
 
-        if (qSqrt(z_x * z_x + z_y * z_y) > R) {
-            fragment_color = (k % 255., k % 255., k % 255., 1.);
-            break;
+        if (sqrt(z_x * z_x + z_y * z_y) > R) {
+            fragment_color = vec4(k * 1., k * 1., k * 1., 1.);
+            return;
         }
     }
-    fragment_color = (0., 0., 0., 1.);
+    fragment_color = vec4(0., 0., 0., 1.);
 }

@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
 	window.resize(a, b);
 	window.show();
 
-	window.setAnimated(true);
+//	window.setAnimated(true);
 
 	return app.exec();
 }

@@ -1,11 +1,11 @@
 set(SRCS
     main.cpp
-    TriangleWindow.cpp
-    TriangleWindow.h
+    mondelbrot.cpp
+    mondelbrot.cpp
 
     shaders.qrc
-    Shaders/diffuse.fs
-    Shaders/diffuse.vs
+    Shaders/mondelbrot.fs
+    Shaders/mondelbrot.vs
 )
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)

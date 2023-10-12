@@ -31,12 +31,12 @@ int main(int argc, char ** argv)
 	// Граница, по которой проверяем
 	size_t R = 10;
 
-	MandelbrotWindow window(max_iterations, R, 1000, 800);
+	MandelbrotWindow window(max_iterations, R);
 	window.setFormat(format);
 	window.resize(1000, 800);
 	window.show();
 
-	window.setAnimated(false);
+	window.setAnimated(true);
 
 	return app.exec();
 }

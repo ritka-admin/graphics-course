@@ -1,10 +1,13 @@
 #include "Base/GLWindow.hpp"
 
 #include <QApplication>
+#include <QMouseEvent>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
+#include <QOpenGLWidget>
 #include <QtMath>
+
 
 class MandelbrotWindow : public fgl::GLWindow {
 
@@ -12,23 +15,25 @@ public:
 	void init() override;
 	void render() override;
 
-	MandelbrotWindow(size_t max_iterations, size_t R, int a, int b)
-		: a(a), b(b), max_iterations(max_iterations), R(R)
+	MandelbrotWindow(size_t max_iterations, int R)
+		: max_iterations(max_iterations), R(R)
 	{}
 
 private:
-	// c = p + iq
-
-	int a;
-	int b;
 
 	// Кол-во итерация, после которого будем проверять, ушли за границу или нет
 	int max_iterations;
 
 	// Граница, по которой проверяем
-	size_t R;
-//	GLint pqUniform_ = -1;
-	GLint stepsUniform_ = -1;
+	int R;
+
+	QPoint startPos_;
+	bool dragged_ = false;
+	QPointF shift_ = QPointF(0.5, 0.5);
+
+	GLint shiftUniform_ = -1;
+	GLint scaleUniform_ = -1;
+	GLint screenUniform_ = -1;
 	GLint iterationsUniform_ = -1;
 	GLint radiusUniform_ = -1;
 
@@ -42,4 +47,8 @@ private:
 
 	QVector2D mousePressPosition_{0., 0.};
 	QVector3D rotationAxis_{0., 1., 0.};
+
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
 };

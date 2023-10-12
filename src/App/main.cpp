@@ -20,14 +20,10 @@ int main(int argc, char ** argv)
 	format.setProfile(QSurfaceFormat::CoreProfile);
 
 	// c = p + iq
-	double p_min = -1.5;
-	double p_max = 1.5;
-	double q_min = -1.5;
-	double q_max = 1.5;
-
-	// размеры окна?
-	int a = 640;
-	int b = 480;
+	double p_min = -2;
+	double p_max = 2;
+	double q_min = -2;
+	double q_max = 2;
 
 	// Кол-во итерация, после которого будем проверять, ушли за границу или нет
 	size_t max_iterations = 1000;
@@ -35,12 +31,12 @@ int main(int argc, char ** argv)
 	// Граница, по которой проверяем
 	size_t R = 10;
 
-	MondelbrotWindow window(p_min, p_max, q_min, q_max, a, b, max_iterations, R);
+	MondelbrotWindow window(p_min, p_max, q_min, q_max, max_iterations, R, 640, 480);
 	window.setFormat(format);
-	window.resize(a, b);
+	window.resize(640, 480);
 	window.show();
 
-//	window.setAnimated(true);
+	window.setAnimated(false);
 
 	return app.exec();
 }

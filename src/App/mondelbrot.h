@@ -1,5 +1,6 @@
 #include "Base/GLWindow.hpp"
 
+#include <QApplication>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
@@ -11,7 +12,7 @@ public:
 	void init() override;
 	void render() override;
 
-	MondelbrotWindow(double p_min, double p_max, double q_min, double q_max, size_t a, size_t b, size_t max_iterations, size_t R)
+	MondelbrotWindow(double p_min, double p_max, double q_min, double q_max, size_t max_iterations, size_t R, int a, int b)
 		: p_min(p_min), p_max(p_max), q_min(q_min), q_max(q_max), a(a), b(b), max_iterations(max_iterations), R(R)
 	{}
 
@@ -22,7 +23,6 @@ private:
 	double q_min;
 	double q_max;
 
-	// размеры окна?
 	int a;
 	int b;
 

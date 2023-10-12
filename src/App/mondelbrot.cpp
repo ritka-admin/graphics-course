@@ -91,14 +91,14 @@ void MondelbrotWindow::render() {
 
 	QVector4D pqs = QVector4D(p_min, p_max, q_min, q_max);
 
-	double x_step = (p_max - p_min) / a;
-	double y_step = (q_max - q_min) / b;;
-	QVector2D steps = QVector2D(x_step, y_step);
+//	double x_step = (p_max - p_min) / a;
+//	double y_step = (q_max - q_min) / b;
+	QVector2D steps = QVector2D(a, b);
 
 	program_->setUniformValue(pqUniform_, pqs);
 	program_->setUniformValue(stepsUniform_, steps);
 	// TODO: pass max iters as parameter
-	program_->setUniformValue(iterationsUniform_, 1000);
+	program_->setUniformValue(iterationsUniform_, 100);
 	program_->setUniformValue(radiusUniform_, 10);
 
 	// TODO: change parameters

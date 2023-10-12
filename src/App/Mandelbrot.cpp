@@ -95,8 +95,8 @@ void MandelbrotWindow::render() {
 	QVector2D screen = QVector2D(width(), height());
 
 	// TODO: parametrize scale
-	program_->setUniformValue(scaleUniform_, 4);
-	program_->setUniformValue(shiftUniform_, QVector2D(shift_.x(), shift_.y()));
+	program_->setUniformValue(scaleUniform_, scale_);
+	program_->setUniformValue(shiftUniform_, shift_);
 	program_->setUniformValue(screenUniform_, screen);
 	program_->setUniformValue(iterationsUniform_, max_iterations);
 	program_->setUniformValue(radiusUniform_, R);
@@ -136,3 +136,14 @@ void MandelbrotWindow::mouseReleaseEvent(QMouseEvent* got_event) {
 	std::cout << "released" << std::endl;
 }
 
+
+void MandelbrotWindow::wheelEvent(QWheelEvent * got_event) {
+	QPoint delta = got_event->angleDelta();
+	std::cout << delta.y() / (float) height()<< std::endl;
+
+	float prev_x = scale_.x();
+	float prev_y = scale_.y();
+
+	scale_.setX(prev_x - delta.y() / (float) height());
+	scale_.setY(prev_y - delta.y() / (float) height());
+}

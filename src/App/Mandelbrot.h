@@ -30,6 +30,7 @@ private:
 	QPoint mouseStartPos_;
 	bool dragged_ = false;
 	QPointF shift_ = QPointF(0.5, 0.5);
+	QPointF scale_ = QPointF(4, 4);
 
 	GLint shiftUniform_ = -1;
 	GLint scaleUniform_ = -1;
@@ -51,4 +52,5 @@ private:
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
+	void wheelEvent ( QWheelEvent * event ) override;
 };

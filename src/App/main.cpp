@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QSurfaceFormat>
 
-#include "mondelbrot.h"
+#include "Mandelbrot.h"
 
 namespace
 {
@@ -20,20 +20,20 @@ int main(int argc, char ** argv)
 	format.setProfile(QSurfaceFormat::CoreProfile);
 
 	// c = p + iq
-	double p_min = -2;
-	double p_max = 2;
-	double q_min = -2;
-	double q_max = 2;
+//	double p_min = -2;
+//	double p_max = 2;
+//	double q_min = -2;
+//	double q_max = 2;
 
 	// Кол-во итерация, после которого будем проверять, ушли за границу или нет
-	size_t max_iterations = 1000;
+	int max_iterations = 1000;
 
 	// Граница, по которой проверяем
 	size_t R = 10;
 
-	MondelbrotWindow window(p_min, p_max, q_min, q_max, max_iterations, R, 640, 480);
+	MandelbrotWindow window(max_iterations, R, 1000, 800);
 	window.setFormat(format);
-	window.resize(640, 480);
+	window.resize(1000, 800);
 	window.show();
 
 	window.setAnimated(false);

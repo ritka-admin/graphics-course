@@ -1,11 +1,11 @@
 set(SRCS
     main.cpp
-    mondelbrot.cpp
-    mondelbrot.h
+    Mandelbrot.cpp
+    Mandelbrot.h
 
     shaders.qrc
-    Shaders/mondelbrot.fs
-    Shaders/mondelbrot.vs
+    Shaders/mandelbrot.fs
+    Shaders/mandelbrot.vs
 )
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)

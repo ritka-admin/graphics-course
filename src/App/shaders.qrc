@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>Shaders/mondelbrot.fs</file>
-        <file>Shaders/mondelbrot.vs</file>
+        <file>Shaders/mandelbrot.fs</file>
+        <file>Shaders/mandelbrot.vs</file>
     </qresource>
 </RCC>

@@ -109,7 +109,7 @@ void MandelbrotWindow::render() {
 }
 
 void MandelbrotWindow::mousePressEvent(QMouseEvent* got_event) {
-	startPos_ = got_event->pos();
+	mouseStartPos_ = got_event->pos();
 	dragged_ = true;
 	std::cout << "dragged" << std::endl;
 }
@@ -117,14 +117,16 @@ void MandelbrotWindow::mousePressEvent(QMouseEvent* got_event) {
 void MandelbrotWindow::mouseMoveEvent(QMouseEvent* got_event) {
 	if (dragged_)
 	{
-		QPoint delta = got_event->pos() - startPos_;
+		QPoint delta = got_event->pos() - mouseStartPos_;
 
 		float prev_x = shift_.x();
 		float prev_y = shift_.y();
 
-		// константа 20 --- для не слишком быстрого перемещения по карте
-		shift_.setX(prev_x + (float) delta.x() / (width() * 20));
-		shift_.setY(prev_y - (float) delta.y() / (height() * 20));
+		// константа --- для не слишком быстрого перемещения по карте
+		shift_.setX(prev_x + (float) delta.x() / (width()));
+		shift_.setY(prev_y - (float) delta.y() / (height()));
+
+		mouseStartPos_ = got_event->pos();
 	}
 }
 

@@ -27,7 +27,7 @@ private:
 	// Граница, по которой проверяем
 	int R;
 
-	QPoint startPos_;
+	QPoint mouseStartPos_;
 	bool dragged_ = false;
 	QPointF shift_ = QPointF(0.5, 0.5);
 

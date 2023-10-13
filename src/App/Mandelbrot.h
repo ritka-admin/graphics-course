@@ -7,25 +7,27 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
 #include <QtMath>
+#include <QOpenGLWidget>
 
 
-class MandelbrotWindow : public fgl::GLWindow {
+class MandelbrotWindow : public QOpenGLWidget {
 
 public:
-	void init() override;
-	void render() override;
+//	void init() override;
+//	void render() override;
+	void initializeGL() override;
+	void paintGL() override;
 
-	MandelbrotWindow(size_t max_iterations, int R)
-		: max_iterations(max_iterations), R(R)
+	MandelbrotWindow()
 	{}
 
 private:
 
 	// Кол-во итерация, после которого будем проверять, ушли за границу или нет
-	int max_iterations;
+	int max_iterations = 1000;
 
 	// Граница, по которой проверяем
-	int R;
+	int R = 4;
 
 	QPoint mouseStartPos_;
 	bool dragged_ = false;
@@ -49,8 +51,10 @@ private:
 	QVector2D mousePressPosition_{0., 0.};
 	QVector3D rotationAxis_{0., 1., 0.};
 
+	QOpenGLFunctions opengl_funcs;
+
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
-	void wheelEvent ( QWheelEvent * event ) override;
+	void wheelEvent ( QWheelEvent * event) override;
 };

@@ -1,32 +1,26 @@
 #include "Mandelbrot.h"
-#include "Base/GLWindow.hpp"
 #include <iostream>
 
 #include <QOpenGLShaderProgram>
 #include <QtMath>
-#include <QDrag>
 
 
 namespace
 {
 
-// TODO: change to triangle_strip
-constexpr std::array<GLfloat, 16u> vertices = {
-	// first triangle
+constexpr std::array<GLfloat, 8u> vertices = {
 	-1.0, -1.0,
 	1.0, -1.0,
 	1.0, 1.0,
-
-	//second
-//	-1.0, -1.0,
-	-1.0, 1.0,
-//	1.0, 1.0,
+	-1.0, 1.0
 };
-constexpr std::array<GLuint, 6u> indices = {0, 1, 2, 0, 2, 3};
+constexpr std::array<GLuint, 6u> indices = {0, 1, 3, 2};
 
 }
 
-void MandelbrotWindow::init() {
+void MandelbrotWindow::initializeGL() {
+		opengl_funcs.initializeOpenGLFunctions();
+
 		program_ = std::make_unique<QOpenGLShaderProgram>(this);
 		program_->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/Shaders/mandelbrot.vs");
 		program_->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/Shaders/mandelbrot.fs");
@@ -78,30 +72,29 @@ void MandelbrotWindow::init() {
 		// glEnable(GL_CULL_FACE);
 
 		// Clear all FBO buffers
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		opengl_funcs.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MandelbrotWindow::render() {
+void MandelbrotWindow::paintGL() {
 	// Configure viewport
 	const auto retinaScale = devicePixelRatio();
-	glViewport(0, 0, static_cast<GLint>(width() * retinaScale),
+	opengl_funcs.glViewport(0, 0, static_cast<GLint>(width() * retinaScale),
 			   static_cast<GLint>(height() * retinaScale));
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	opengl_funcs.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	program_->bind();
 	vao_.bind();
 
 	QVector2D screen = QVector2D(width(), height());
 
-	// TODO: parametrize scale
 	program_->setUniformValue(scaleUniform_, scale_);
 	program_->setUniformValue(shiftUniform_, shift_);
 	program_->setUniformValue(screenUniform_, screen);
 	program_->setUniformValue(iterationsUniform_, max_iterations);
 	program_->setUniformValue(radiusUniform_, R);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	opengl_funcs.glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, nullptr);
 
 	// Release VAO and shader program
 	vao_.release();
@@ -111,7 +104,6 @@ void MandelbrotWindow::render() {
 void MandelbrotWindow::mousePressEvent(QMouseEvent* got_event) {
 	mouseStartPos_ = got_event->pos();
 	dragged_ = true;
-	std::cout << "dragged" << std::endl;
 }
 
 void MandelbrotWindow::mouseMoveEvent(QMouseEvent* got_event) {
@@ -122,18 +114,19 @@ void MandelbrotWindow::mouseMoveEvent(QMouseEvent* got_event) {
 		float prev_x = shift_.x();
 		float prev_y = shift_.y();
 
-		// константа --- для не слишком быстрого перемещения по карте
-		shift_.setX(prev_x + (float) delta.x() / (width()));
-		shift_.setY(prev_y - (float) delta.y() / (height()));
+		shift_.setX(prev_x + (float) delta.x() / width());
+		shift_.setY(prev_y - (float) delta.y() / height());
 
 		mouseStartPos_ = got_event->pos();
+
+		update();
 	}
 }
 
 void MandelbrotWindow::mouseReleaseEvent(QMouseEvent* got_event) {
+	// TODO: remove
 	got_event->pos();
 	dragged_ = false;
-	std::cout << "released" << std::endl;
 }
 
 
@@ -144,6 +137,12 @@ void MandelbrotWindow::wheelEvent(QWheelEvent * got_event) {
 	float prev_x = scale_.x();
 	float prev_y = scale_.y();
 
-	scale_.setX(prev_x - delta.y() / (float) height());
-	scale_.setY(prev_y - delta.y() / (float) height());
+	// todo: control the number of scrolls?
+	float speed = scale_.x();
+
+	scale_.setX(prev_x - delta.y() / (float) height() * speed);
+	scale_.setY(prev_y - delta.y() / (float) height() * speed);
+
+//	std::cout << scale_.x() << " " << scale_.y() << std::endl;
+	update();
 }

@@ -3,13 +3,13 @@
 uniform vec2 screen;
 uniform int max_iterations;
 uniform int R;
-uniform int scale;
+uniform vec2 scale;
 uniform vec2 shift;
 
 
 void main() {
-    float cur_x = scale * (gl_FragCoord.x/screen.x - shift.x);
-    float cur_y = scale * (gl_FragCoord.y/screen.y - shift.y);
+    float cur_x = scale.x * (gl_FragCoord.x/screen.x - shift.x);
+    float cur_y = scale.y * (gl_FragCoord.y/screen.y - shift.y);
 
     float p = cur_x;
     float q = cur_y;
@@ -31,5 +31,6 @@ void main() {
         z.y = y;
     }
 
-    gl_FragColor = vec4(vec3((k == max_iterations ? 0.0 : float(k) / 100.)), 1);
+    vec3 colors = k == max_iterations ? vec3(0., 0., 0.) : vec3((float(k) / 50.));
+    gl_FragColor = vec4(colors.rgb, 1);
 }

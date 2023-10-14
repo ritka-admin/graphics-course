@@ -15,12 +15,11 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-#add_subdirectory(thirdparty)
+add_subdirectory(thirdparty)
 
 include_directories(src)
 
 # For Qt
-option(DCMAKE_PREFIX_PATH /home/ritka-admin/Qt)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)

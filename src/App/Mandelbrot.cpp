@@ -1,10 +1,11 @@
 #include "Mandelbrot.h"
-#include <iostream>
-
 #include <QtMath>
 #include <QLabel>
 #include <QSlider>
 #include <QVBoxLayout>
+
+#include <array>
+#include <string>
 
 
 namespace

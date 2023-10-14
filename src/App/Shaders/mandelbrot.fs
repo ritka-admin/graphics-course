@@ -6,6 +6,8 @@ uniform int R;
 uniform vec2 scale;
 uniform vec2 center;
 
+out vec4 frag_color;
+
 
 void main() {
     float cur_x = scale.x * (gl_FragCoord.x/screen.x - 0.5) - center.x;
@@ -32,5 +34,5 @@ void main() {
     }
 
     vec3 colors = k == max_iterations ? vec3(0., 0., 0.) : vec3((float(k) / 50.));
-    gl_FragColor = vec4(colors.rgb, 1);
+    frag_color = vec4(colors.rgb, 1);
 }

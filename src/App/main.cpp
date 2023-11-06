@@ -1,7 +1,10 @@
 #include <QApplication>
 #include <QSurfaceFormat>
+#include <QToolBar>
+#include <QFormLayout>
 
-#include "TriangleWindow.h"
+
+#include "Mandelbrot.h"
 
 namespace
 {
@@ -19,12 +22,11 @@ int main(int argc, char ** argv)
 	format.setVersion(g_gl_major_version, g_gl_minor_version);
 	format.setProfile(QSurfaceFormat::CoreProfile);
 
-	TriangleWindow window;
+	MandelbrotWindow window;
 	window.setFormat(format);
-	window.resize(640, 480);
-	window.show();
 
-	window.setAnimated(true);
+	window.resize(1000, 800);
+	window.show();
 
 	return app.exec();
 }

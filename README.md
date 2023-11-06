@@ -1,13 +1,10 @@
 ![build_cmake_status](https://github.com/sadads1337/mse-gl-hw-template/actions/workflows/build_cmake.yml/badge.svg)
 
-# ITMO MSE OpenGL homework template 2022
+# Mandelbrot fractal
 
-Qt based demo project to demonstrate how to use and implement basic 3D graphics features.
-No optimizations exists. Use only for educational purposes.
+Mandelbrot set representation with zooming, navigation and parameters changing.
 
-## Purposes
-
-Help students with their submission is the main goal of this repository. Do not use this code in production!!!
+<img src="https://github.com/ritka-admin/morphing-plus-phong-shading/assets/100676145/8bd68acc-29c9-4ddb-af22-1dcfb4ec4ad4" alt="drawing" width="500"/>
 
 ## Requirements
 
